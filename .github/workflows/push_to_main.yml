@@ -2,7 +2,9 @@ on:
   push:
     branches:
       - main
-
+env:
+  AWS_REGION: "us-east-1"
+  TF_CLI_ARGS: "-no-color"
 jobs:
   build-and-deploy:
     name: 'Build and Deploy'
@@ -25,3 +27,5 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: Terraform Apply
         run: just build-and-deploy
+        env:
+          TF_CLI_ARGS: ${{ env.TF_CLI_ARGS }}
