@@ -51,13 +51,14 @@ data "archive_file" "this" {
 }
 
 resource "aws_lambda_function" "this" {
-  filename         = data.archive_file.this.output_path
-  function_name    = var.lambda_function_name
-  role             = aws_iam_role.this.arn
-  handler          = var.function_handler_name
-  source_code_hash = data.archive_file.this.output_base64sha256
-  runtime          = "nodejs18.x"
-  timeout          = 60
+  filename                       = data.archive_file.this.output_path
+  function_name                  = var.lambda_function_name
+  role                           = aws_iam_role.this.arn
+  handler                        = var.function_handler_name
+  source_code_hash               = data.archive_file.this.output_base64sha256
+  runtime                        = "nodejs18.x"
+  timeout                        = 60
+  reserved_concurrent_executions = 2
 }
 
 resource "aws_cloudwatch_log_group" "lambda" {

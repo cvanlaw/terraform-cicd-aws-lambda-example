@@ -12,13 +12,14 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda
 
 export const handler = async (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
     console.log('EVENT: \n' + JSON.stringify(event, null, 2));
+    console.log('CONTEXT: \n' + JSON.stringify(context, null, 2));
     const response: APIGatewayProxyResult = {
         statusCode: 200,
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            logStreamName: context.logStreamName,
+            message: 'Hello, world!',
         }),
         isBase64Encoded: false,
     };
