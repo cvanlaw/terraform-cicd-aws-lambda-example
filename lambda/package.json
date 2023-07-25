@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Lambda example in TypeScript.",
   "main": "app.js",
+  "type": "module",
   "repository": "",
   "author": "Chris Van Law",
   "license": "MIT",
