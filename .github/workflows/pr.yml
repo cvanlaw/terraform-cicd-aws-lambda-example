@@ -12,6 +12,7 @@ jobs:
     name: 'Terraform PR'
     runs-on: ubuntu-latest
     steps:
+      - uses: extractions/setup-just@v1
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Terraform
