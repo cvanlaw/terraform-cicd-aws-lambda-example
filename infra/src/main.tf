@@ -70,15 +70,3 @@ resource "aws_lambda_function_url" "url" {
   invoke_mode        = "BUFFERED"
   authorization_type = "NONE"
 }
-
-data "aws_route53_zone" "vanlawdev" {
-  name = "vanlaw.dev"
-}
-
-resource "aws_route53_record" "lambda" {
-  zone_id = data.aws_route53_zone.vanlawdev.zone_id
-  name    = var.lambda_function_name
-  type    = "CNAME"
-  ttl     = 60
-  records = [aws_lambda_function_url.url.function_url]
-}
