@@ -45,3 +45,9 @@ destroy: terraform_pre
   terraform destroy -auto-approve
 
 build-and-deploy: build apply
+
+validate: terraform_pre
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  cd {{infra_src_dir}}
+  terraform validate
