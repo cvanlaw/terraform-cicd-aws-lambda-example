@@ -1,0 +1,37 @@
+name: 'Destroy'
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'
+
+env:
+  AWS_REGION: "us-east-1"
+  TF_CLI_ARGS: "-no-color"
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1.7.0
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          role-session-name: GitHub_to_AWS_via_FederatedOIDC
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.2
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: true
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approve
