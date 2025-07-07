@@ -38,7 +38,7 @@ apply: plan
   cd {{infra_src_dir}}
   terraform apply tfplan
 
-destroy: terraform_pre
+destroy: terraform_pre build
   #!/usr/bin/env bash
   set -euxo pipefail
   cd {{infra_src_dir}}
