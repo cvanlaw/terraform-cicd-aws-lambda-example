@@ -32,4 +32,4 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
           terraform_wrapper: true
       - name: Terraform Destroy
-        run: terraform destroy -auto-approve
+        run: terraform init && terraform destroy -auto-approve
